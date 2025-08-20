@@ -10,7 +10,8 @@ class HomeScaffold extends StatefulWidget {
   State<HomeScaffold> createState() => _HomeScaffoldState();
 }
 
-class _HomeScaffoldState extends State<HomeScaffold> {
+class _HomeScaffoldState extends State<HomeScaffold>
+    with TickerProviderStateMixin {
   int _indexFromLocation(String location) {
     if (location.startsWith('/chat')) return 1;
     if (location.startsWith('/settings')) return 2;
@@ -33,7 +34,7 @@ class _HomeScaffoldState extends State<HomeScaffold> {
   Widget build(BuildContext context) {
     final location = GoRouterState.of(context).matchedLocation;
     final index = _indexFromLocation(location);
-    
+
     return Scaffold(
       body: widget.child,
       bottomNavigationBar: AnimatedBottomNavigationBar(
@@ -41,11 +42,6 @@ class _HomeScaffoldState extends State<HomeScaffold> {
           Icons.article_outlined,
           Icons.chat_bubble_outline,
           Icons.settings_outlined,
-        ],
-        activeIcons: const [
-          Icons.article,
-          Icons.chat_bubble,
-          Icons.settings,
         ],
         activeIndex: index,
         gapLocation: GapLocation.none,
@@ -58,30 +54,25 @@ class _HomeScaffoldState extends State<HomeScaffold> {
         },
         backgroundColor: Theme.of(context).colorScheme.surface,
         activeColor: Theme.of(context).colorScheme.primary,
-        inactiveColor: Theme.of(context).colorScheme.onSurface.withOpacity(0.5),
-        splashColor: Theme.of(context).colorScheme.primary.withOpacity(0.1),
+        inactiveColor: Theme.of(
+          context,
+        ).colorScheme.onSurface.withValues(alpha: 0.5),
+        splashColor:
+            Theme.of(context).colorScheme.primary..withValues(alpha: 0.1),
         splashSpeedInMilliseconds: 300,
         notchAndCornersAnimation: animation,
-        switchAnimation: switchAnimation,
-        colorChangeAnimation: colorChangeAnimation,
       ),
     );
   }
 
-  final animation = AnimationController(
+  late final AnimationController animation = AnimationController(
     vsync: this,
     duration: const Duration(milliseconds: 300),
   );
 
-  final switchAnimation = AnimationController(
-    vsync: this,
-    duration: const Duration(milliseconds: 300),
-  );
-
-  final colorChangeAnimation = AnimationController(
-    vsync: this,
-    duration: const Duration(milliseconds: 300),
-  );
+  @override
+  void dispose() {
+    animation.dispose();
+    super.dispose();
+  }
 }
-
-

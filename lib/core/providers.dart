@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -17,27 +18,25 @@ final authStateChangesProvider = StreamProvider<User?>((ref) {
 });
 
 final googleSignInProvider = Provider<GoogleSignIn>((ref) {
-  return GoogleSignIn(
-    scopes: const [
-      'email',
-    ],
-  );
+  return GoogleSignIn(scopes: const ['email']);
 });
 
 final sharedPreferencesProvider = Provider<SharedPreferences>((ref) {
   throw UnimplementedError();
 });
 
-final themeModeProvider = StateNotifierProvider<ThemeModeNotifier, ThemeMode>((ref) {
+final themeModeProvider = StateNotifierProvider<ThemeModeNotifier, ThemeMode>((
+  ref,
+) {
   return ThemeModeNotifier(ref);
 });
 
 class ThemeModeNotifier extends StateNotifier<ThemeMode> {
-  ThemeModeNotifier(this._ref) : super(ThemeMode.system) {
+  final Ref ref;
+
+  ThemeModeNotifier(this.ref) : super(ThemeMode.system) {
     _loadThemeMode();
   }
-
-  final Ref _ref;
 
   static const _themeKey = 'theme_mode';
 
@@ -53,6 +52,3 @@ class ThemeModeNotifier extends StateNotifier<ThemeMode> {
     await prefs.setInt(_themeKey, mode.index);
   }
 }
-
-
-
