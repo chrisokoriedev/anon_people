@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "619282595163",
+    "project_id": "anon-people",
+    "storage_bucket": "anon-people.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:619282595163:android:650a95290dbff0f854ee7e",
+        "android_client_info": {
+          "package_name": "com.example.anon_people"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAhFgIbO53NEy5pHLrfVD3nNsdtUVFyn14"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
