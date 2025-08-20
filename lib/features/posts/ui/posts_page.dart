@@ -5,7 +5,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import '../../posts/data/posts_repository.dart';
 import '../domain/post.dart';
-import '../../auth/data/auth_repository.dart';
 
 class PostsPage extends HookConsumerWidget {
   const PostsPage({super.key});
@@ -46,10 +45,7 @@ class PostsPage extends HookConsumerWidget {
     }, const []);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Posts'),
-        actions: const [_SignOutButton()],
-      ),
+      appBar: AppBar(title: const Text('Posts')),
       body: RefreshIndicator(
         onRefresh: () async => pagingController.refresh(),
         child: PagedListView<DocumentSnapshot?, Post>.separated(
@@ -154,20 +150,6 @@ class _ErrorRetry extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-}
-
-class _SignOutButton extends ConsumerWidget {
-  const _SignOutButton();
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return IconButton(
-      tooltip: 'Sign out',
-      onPressed: () async {
-        await ref.read(authRepositoryProvider).signOut();
-      },
-      icon: const Icon(Icons.logout),
     );
   }
 }

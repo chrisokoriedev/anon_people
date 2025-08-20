@@ -6,6 +6,7 @@ import '../core/providers.dart';
 import '../features/auth/ui/login_page.dart';
 import '../features/posts/ui/posts_page.dart';
 import '../features/chat/ui/chat_page.dart';
+import '../features/settings/ui/settings_page.dart';
 import '../features/home/ui/home_scaffold.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
@@ -40,6 +41,10 @@ final routerProvider = Provider<GoRouter>((ref) {
           GoRoute(
             path: '/chat',
             builder: (context, state) => const ChatPage(),
+          ),
+          GoRoute(
+            path: '/settings',
+            builder: (context, state) => const SettingsPage(),
           ),
         ],
       ),
